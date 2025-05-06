@@ -48,8 +48,8 @@ This is a modern, production-ready monorepo boilerplate built with Next.js, Reac
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   git clone git@github.com:jaaymes/boilerplate-turbo.git
+   cd boilerplate-turbo
    ```
 
 2. Install dependencies:
@@ -60,8 +60,8 @@ This is a modern, production-ready monorepo boilerplate built with Next.js, Reac
 3. Set up environment variables:
    Create a `.env.local` file in the `/apps/web` directory:
    ```
-   NEXT_PUBLIC_API_URL=https://api.example.com
-   NEXT_JWT_SECRET=your_md5_secret_hash_for_jwt
+   NEXT_PUBLIC_API_URL=https://jctechsolution.zapto.org/api
+   NEXT_JWT_SECRET=27a9d45312c3560e2e28e0ce79824688
    ```
 
 4. Start the development server:
@@ -75,7 +75,7 @@ This is a modern, production-ready monorepo boilerplate built with Next.js, Reac
 
 For testing purposes, you can use the following API endpoint:
 ```
-https://api.example.com
+https://jctechsolution.zapto.org/api
 ```
 
 ## 🔐 JWT Configuration
