@@ -1,37 +1,43 @@
 import { AppSidebar } from "@/components/app-sidebar";
-import { SiteHeader } from "@/components/site-header";
-import { JwtDecrypter } from "@/shared/utils/crypto";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@package/ui/components/breadcrumb";
+import { Separator } from "@package/ui/components/separator";
 import {
   SidebarInset,
   SidebarProvider,
-} from "@workspace/ui/components/sidebar";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+  SidebarTrigger,
+} from "@package/ui/components/sidebar";
 
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("accessToken")?.value;
-
-  console.log("token", token);
-
-  const { decrypt } = new JwtDecrypter();
-
-  if (!token) {
-    redirect("/login");
-  }
-
-  const decryptedToken = await decrypt(token);
-
-  console.log("decryptedToken", decryptedToken);
+export default function Page({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <AppSidebar variant="inset" />
+      <AppSidebar />
       <SidebarInset>
-        <SiteHeader />
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="#">
+                    Building Your Application
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </header>
         {children}
       </SidebarInset>
     </SidebarProvider>

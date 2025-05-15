@@ -1,7 +1,7 @@
 export type FetchRequestConfig = {
   method?: string;
   headers?: Record<string, string>;
-  body?: any;
+  body?: unknown;
   params?: Record<string, string | number>;
   baseURL?: string;
 };
@@ -15,10 +15,10 @@ export type FetchResponse<T = any> = {
 export type RequestInterceptor = (
   config: FetchRequestConfig
 ) => Promise<FetchRequestConfig> | FetchRequestConfig;
-export type ResponseInterceptor<T = any> = (
+export type ResponseInterceptor<T = unknown> = (
   response: FetchResponse<T>
 ) => Promise<FetchResponse<T>> | FetchResponse<T>;
-export type ErrorInterceptor = (error: any) => Promise<any> | any;
+export type ErrorInterceptor = (error: unknown) => Promise<unknown> | unknown;
 
 export class FetchClient {
   private baseURL: string;
@@ -52,17 +52,19 @@ export class FetchClient {
     return currentConfig;
   }
 
-  private async applyResponseInterceptors<T>(
+  private async applyResponseInterceptors<T = any>(
     response: FetchResponse<T>
   ): Promise<FetchResponse<T>> {
     let currentResponse = { ...response };
     for (const interceptor of this.responseInterceptors) {
-      currentResponse = await interceptor(currentResponse);
+      currentResponse = (await interceptor(
+        currentResponse as FetchResponse<unknown>
+      )) as FetchResponse<T>;
     }
     return currentResponse;
   }
 
-  private async applyErrorInterceptors(error: any): Promise<any> {
+  private async applyErrorInterceptors(error: unknown): Promise<unknown> {
     let currentError = error;
     for (const interceptor of this.errorInterceptors) {
       currentError = await interceptor(currentError);
@@ -79,22 +81,29 @@ export class FetchClient {
       let fullUrl = this.baseURL ? this.baseURL + url : url;
       if (finalConfig.params) {
         const params = new URLSearchParams(
-          finalConfig.params as any
+          finalConfig.params as Record<string, string>
         ).toString();
         fullUrl += (fullUrl.includes("?") ? "&" : "?") + params;
       }
       const fetchConfig: RequestInit = {
         method: finalConfig.method || "GET",
         headers: finalConfig.headers,
-        body: finalConfig.body,
+        body:
+          finalConfig.body instanceof FormData
+            ? finalConfig.body
+            : typeof finalConfig.body === "string"
+              ? finalConfig.body
+              : finalConfig.body
+                ? JSON.stringify(finalConfig.body)
+                : undefined,
       };
       const response = await fetch(fullUrl, fetchConfig);
       const contentType = response.headers.get("content-type");
-      let data: any;
+      let data: T;
       if (contentType && contentType.includes("application/json")) {
-        data = await response.json();
+        data = (await response.json()) as T;
       } else {
-        data = await response.text();
+        data = (await response.text()) as unknown as T;
       }
       const fetchResponse: FetchResponse<T> = {
         data,
@@ -117,11 +126,11 @@ export class FetchClient {
     return this.request<T>(url, { ...config, method: "GET" });
   }
 
-  post<T = any>(url: string, body?: any, config: FetchRequestConfig = {}) {
+  post<T = any>(url: string, body?: unknown, config: FetchRequestConfig = {}) {
     return this.request<T>(url, {
       ...config,
       method: "POST",
-      body: body ? JSON.stringify(body) : undefined,
+      body,
       headers: {
         "Content-Type": "application/json",
         ...(config.headers || {}),
@@ -129,11 +138,11 @@ export class FetchClient {
     });
   }
 
-  put<T = any>(url: string, body?: any, config: FetchRequestConfig = {}) {
+  put<T = any>(url: string, body?: unknown, config: FetchRequestConfig = {}) {
     return this.request<T>(url, {
       ...config,
       method: "PUT",
-      body: body ? JSON.stringify(body) : undefined,
+      body,
       headers: {
         "Content-Type": "application/json",
         ...(config.headers || {}),
@@ -141,7 +150,7 @@ export class FetchClient {
     });
   }
 
-  delete<T = any>(url: string, config: FetchRequestConfig = {}) {
+  delete<T = unknown>(url: string, config: FetchRequestConfig = {}) {
     return this.request<T>(url, { ...config, method: "DELETE" });
   }
 }

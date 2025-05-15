@@ -1,9 +1,9 @@
-import { toast } from "@workspace/ui/components/sonner";
+import { toast } from "@package/ui/components/sonner";
 import { redirect } from "next/navigation";
 import type { Token } from "../../domain/models/auth-response";
 import { IAuthRepository } from "../../domain/repositories/auth-repository";
+import type { SignupFormData } from "../../domain/validation/schemas";
 import { AuthApi } from "../http/auth-api";
-
 // Repository Implementation - Implementa os contratos definidos no domínio
 export class AuthRepositoryImpl implements IAuthRepository {
   private api: AuthApi;
@@ -20,9 +20,9 @@ export class AuthRepositoryImpl implements IAuthRepository {
       });
 
       return response.data;
-    } catch (error) {
-      toast.error("Falha na autenticação");
-      throw new Error("Falha na autenticação");
+    } catch (error: any) {
+      toast.error(error.data.message);
+      throw new Error(error.data.message);
     }
   }
 
@@ -31,9 +31,18 @@ export class AuthRepositoryImpl implements IAuthRepository {
       // Implementar logout no servidor, se necessário
       localStorage.removeItem("accessToken");
       redirect("/login");
-    } catch (error) {
-      toast.error("Erro ao realizar logout");
-      throw new Error("Falha ao realizar logout");
+    } catch (error: any) {
+      toast.error(error.data.message);
+      throw new Error(error.data.message);
+    }
+  }
+
+  async signup(user: SignupFormData): Promise<void> {
+    try {
+      await this.api.getHttpClient().post("/signup", user);
+    } catch (error: any) {
+      toast.error(error.data.message);
+      throw new Error(error.data.message);
     }
   }
 }

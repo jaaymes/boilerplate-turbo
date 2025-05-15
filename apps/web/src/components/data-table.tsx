@@ -54,15 +54,15 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Badge } from "@workspace/ui/components/badge";
-import { Button } from "@workspace/ui/components/button";
+import { Badge } from "@package/ui/components/badge";
+import { Button } from "@package/ui/components/button";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@workspace/ui/components/chart";
-import { Checkbox } from "@workspace/ui/components/checkbox";
+} from "@package/ui/components/chart";
+import { Checkbox } from "@package/ui/components/checkbox";
 import {
   Drawer,
   DrawerClose,
@@ -72,7 +72,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@workspace/ui/components/drawer";
+} from "@package/ui/components/drawer";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -80,17 +80,17 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu";
-import { Input } from "@workspace/ui/components/input";
-import { Label } from "@workspace/ui/components/label";
+} from "@package/ui/components/dropdown-menu";
+import { Input } from "@package/ui/components/input";
+import { Label } from "@package/ui/components/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@workspace/ui/components/select";
-import { Separator } from "@workspace/ui/components/separator";
+} from "@package/ui/components/select";
+import { Separator } from "@package/ui/components/separator";
 import {
   Table,
   TableBody,
@@ -98,13 +98,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@workspace/ui/components/table";
+} from "@package/ui/components/table";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@workspace/ui/components/tabs";
+} from "@package/ui/components/tabs";
 
 export const schema = z.object({
   id: z.number(),

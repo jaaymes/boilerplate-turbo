@@ -1,6 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "envMode": "strict",
+  "globalEnv": ["NEXT_JWT_SECRET"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -18,6 +20,14 @@
       "persistent": true
     },
     "cypress": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
       "cache": false,
       "persistent": true
     }

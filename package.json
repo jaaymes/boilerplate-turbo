@@ -4,14 +4,16 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
+    "start:web": "turbo run start --filter=web",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "cypress": "turbo run cypress --filter=web"
+    "cypress": "turbo run cypress --filter=web",
+    "clean": "turbo clean"
   },
   "devDependencies": {
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
+    "@package/eslint-config": "workspace:*",
+    "@package/typescript-config": "workspace:*",
     "prettier": "^3.5.1",
     "turbo": "^2.4.2",
     "typescript": "5.7.3"

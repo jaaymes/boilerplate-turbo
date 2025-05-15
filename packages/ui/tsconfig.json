@@ -1,6 +1,6 @@
 
 {
-  "extends": "@workspace/typescript-config/react-library.json",
+  "extends": "@package/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
@@ -10,7 +10,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@package/ui/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],

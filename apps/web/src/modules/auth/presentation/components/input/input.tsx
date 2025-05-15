@@ -4,9 +4,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@workspace/ui/components/form";
-import { Input as ShadcnInput } from "@workspace/ui/components/input";
-import { cn } from "@workspace/ui/lib/utils";
+} from "@package/ui/components/form";
+import { Input as ShadcnInput } from "@package/ui/components/input";
+import { cn } from "@package/ui/lib/utils";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { FieldValues, useController } from "react-hook-form";
@@ -35,7 +35,7 @@ export function Input<T extends FieldValues>({
       render={() => (
         <FormItem>
           <FormLabel htmlFor={inputId}>
-            {required && <span className="text-destructive mr-1.5">*</span>}
+            {required && <span className="text-destructive mr-0.5">*</span>}
             {label}
           </FormLabel>
           <FormControl>
@@ -47,7 +47,11 @@ export function Input<T extends FieldValues>({
                 disabled={disabled}
                 className={cn(isPassword && "pr-10")}
                 data-testid="input-field"
-                {...field}
+                value={field.value ?? ""}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                name={field.name}
+                ref={field.ref}
               />
               {isPassword && (
                 <button

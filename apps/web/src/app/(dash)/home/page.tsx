@@ -3,8 +3,17 @@ import { DataTable } from "@/components/data-table";
 import { SectionCards } from "@/components/section-cards";
 
 import data from "@/constants/data.json";
+import { decrypt } from "@/shared/utils/crypto";
+import { cookies } from "next/headers";
 
-export default function Page() {
+export default async function Page() {
+  const cookiesList = await cookies();
+  const accessToken = cookiesList.get("accessToken")?.value;
+  if (!accessToken) {
+    return <div>No access token</div>;
+  }
+  const payload = await decrypt(accessToken);
+  console.log(payload);
   return (
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">

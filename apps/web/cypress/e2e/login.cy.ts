@@ -35,7 +35,8 @@ describe("Página de Login", () => {
     cy.location("pathname", { timeout: 10000 }).should("eq", "/home");
   });
 
-  it("deve exibir link para criar conta", () => {
-    cy.contains("Criar conta").should("have.attr", "href", "/signup");
+  it("deve exibir link para cadastro e redirecionar para a página de cadastro", () => {
+    cy.contains("Cadastre-se").click();
+    cy.location("pathname", { timeout: 10000 }).should("eq", "/signup");
   });
 });
