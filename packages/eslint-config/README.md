@@ -1,3 +1,3 @@
 # `@package/eslint-config`
 
-Shared eslint configuration for the workspace.
+Configuração compartilhada do eslint para o workspace.

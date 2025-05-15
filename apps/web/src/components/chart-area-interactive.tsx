@@ -18,6 +18,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@package/ui/components/chart";
+import { Combobox, ComboboxOption } from "@package/ui/components/combobox";
 import {
   Select,
   SelectContent,
@@ -30,112 +31,26 @@ import {
   ToggleGroupItem,
 } from "@package/ui/components/toggle-group";
 
-export const description = "An interactive area chart";
+export const description = "Um gráfico de área interativo";
 
-const chartData = [
-  { date: "2024-04-01", desktop: 222, mobile: 150 },
-  { date: "2024-04-02", desktop: 97, mobile: 180 },
-  { date: "2024-04-03", desktop: 167, mobile: 120 },
-  { date: "2024-04-04", desktop: 242, mobile: 260 },
-  { date: "2024-04-05", desktop: 373, mobile: 290 },
-  { date: "2024-04-06", desktop: 301, mobile: 340 },
-  { date: "2024-04-07", desktop: 245, mobile: 180 },
-  { date: "2024-04-08", desktop: 409, mobile: 320 },
-  { date: "2024-04-09", desktop: 59, mobile: 110 },
-  { date: "2024-04-10", desktop: 261, mobile: 190 },
-  { date: "2024-04-11", desktop: 327, mobile: 350 },
-  { date: "2024-04-12", desktop: 292, mobile: 210 },
-  { date: "2024-04-13", desktop: 342, mobile: 380 },
-  { date: "2024-04-14", desktop: 137, mobile: 220 },
-  { date: "2024-04-15", desktop: 120, mobile: 170 },
-  { date: "2024-04-16", desktop: 138, mobile: 190 },
-  { date: "2024-04-17", desktop: 446, mobile: 360 },
-  { date: "2024-04-18", desktop: 364, mobile: 410 },
-  { date: "2024-04-19", desktop: 243, mobile: 180 },
-  { date: "2024-04-20", desktop: 89, mobile: 150 },
-  { date: "2024-04-21", desktop: 137, mobile: 200 },
-  { date: "2024-04-22", desktop: 224, mobile: 170 },
-  { date: "2024-04-23", desktop: 138, mobile: 230 },
-  { date: "2024-04-24", desktop: 387, mobile: 290 },
-  { date: "2024-04-25", desktop: 215, mobile: 250 },
-  { date: "2024-04-26", desktop: 75, mobile: 130 },
-  { date: "2024-04-27", desktop: 383, mobile: 420 },
-  { date: "2024-04-28", desktop: 122, mobile: 180 },
-  { date: "2024-04-29", desktop: 315, mobile: 240 },
-  { date: "2024-04-30", desktop: 454, mobile: 380 },
-  { date: "2024-05-01", desktop: 165, mobile: 220 },
-  { date: "2024-05-02", desktop: 293, mobile: 310 },
-  { date: "2024-05-03", desktop: 247, mobile: 190 },
-  { date: "2024-05-04", desktop: 385, mobile: 420 },
-  { date: "2024-05-05", desktop: 481, mobile: 390 },
-  { date: "2024-05-06", desktop: 498, mobile: 520 },
-  { date: "2024-05-07", desktop: 388, mobile: 300 },
-  { date: "2024-05-08", desktop: 149, mobile: 210 },
-  { date: "2024-05-09", desktop: 227, mobile: 180 },
-  { date: "2024-05-10", desktop: 293, mobile: 330 },
-  { date: "2024-05-11", desktop: 335, mobile: 270 },
-  { date: "2024-05-12", desktop: 197, mobile: 240 },
-  { date: "2024-05-13", desktop: 197, mobile: 160 },
-  { date: "2024-05-14", desktop: 448, mobile: 490 },
-  { date: "2024-05-15", desktop: 473, mobile: 380 },
-  { date: "2024-05-16", desktop: 338, mobile: 400 },
-  { date: "2024-05-17", desktop: 499, mobile: 420 },
-  { date: "2024-05-18", desktop: 315, mobile: 350 },
-  { date: "2024-05-19", desktop: 235, mobile: 180 },
-  { date: "2024-05-20", desktop: 177, mobile: 230 },
-  { date: "2024-05-21", desktop: 82, mobile: 140 },
-  { date: "2024-05-22", desktop: 81, mobile: 120 },
-  { date: "2024-05-23", desktop: 252, mobile: 290 },
-  { date: "2024-05-24", desktop: 294, mobile: 220 },
-  { date: "2024-05-25", desktop: 201, mobile: 250 },
-  { date: "2024-05-26", desktop: 213, mobile: 170 },
-  { date: "2024-05-27", desktop: 420, mobile: 460 },
-  { date: "2024-05-28", desktop: 233, mobile: 190 },
-  { date: "2024-05-29", desktop: 78, mobile: 130 },
-  { date: "2024-05-30", desktop: 340, mobile: 280 },
-  { date: "2024-05-31", desktop: 178, mobile: 230 },
-  { date: "2024-06-01", desktop: 178, mobile: 200 },
-  { date: "2024-06-02", desktop: 470, mobile: 410 },
-  { date: "2024-06-03", desktop: 103, mobile: 160 },
-  { date: "2024-06-04", desktop: 439, mobile: 380 },
-  { date: "2024-06-05", desktop: 88, mobile: 140 },
-  { date: "2024-06-06", desktop: 294, mobile: 250 },
-  { date: "2024-06-07", desktop: 323, mobile: 370 },
-  { date: "2024-06-08", desktop: 385, mobile: 320 },
-  { date: "2024-06-09", desktop: 438, mobile: 480 },
-  { date: "2024-06-10", desktop: 155, mobile: 200 },
-  { date: "2024-06-11", desktop: 92, mobile: 150 },
-  { date: "2024-06-12", desktop: 492, mobile: 420 },
-  { date: "2024-06-13", desktop: 81, mobile: 130 },
-  { date: "2024-06-14", desktop: 426, mobile: 380 },
-  { date: "2024-06-15", desktop: 307, mobile: 350 },
-  { date: "2024-06-16", desktop: 371, mobile: 310 },
-  { date: "2024-06-17", desktop: 475, mobile: 520 },
-  { date: "2024-06-18", desktop: 107, mobile: 170 },
-  { date: "2024-06-19", desktop: 341, mobile: 290 },
-  { date: "2024-06-20", desktop: 408, mobile: 450 },
-  { date: "2024-06-21", desktop: 169, mobile: 210 },
-  { date: "2024-06-22", desktop: 317, mobile: 270 },
-  { date: "2024-06-23", desktop: 480, mobile: 530 },
-  { date: "2024-06-24", desktop: 132, mobile: 180 },
-  { date: "2024-06-25", desktop: 141, mobile: 190 },
-  { date: "2024-06-26", desktop: 434, mobile: 380 },
-  { date: "2024-06-27", desktop: 448, mobile: 490 },
-  { date: "2024-06-28", desktop: 149, mobile: 200 },
-  { date: "2024-06-29", desktop: 103, mobile: 160 },
-  { date: "2024-06-30", desktop: 446, mobile: 400 },
-];
+interface CryptoData {
+  date: string;
+  price: number;
+  volume: number;
+}
+
+interface Cryptocurrency {
+  id: string;
+  name: string;
+  symbol: string;
+}
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  price: {
+    label: "Preço",
   },
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-1)",
-  },
-  mobile: {
-    label: "Mobile",
+  volume: {
+    label: "Quantidade Negociada",
     color: "var(--chart-2)",
   },
 } satisfies ChartConfig;
@@ -143,6 +58,51 @@ const chartConfig = {
 export function ChartAreaInteractive() {
   const isMobile = useIsMobile();
   const [timeRange, setTimeRange] = React.useState("90d");
+  const [chartData, setChartData] = React.useState<CryptoData[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [selectedCrypto, setSelectedCrypto] = React.useState("bitcoin");
+  const [cryptoOptions, setCryptoOptions] = React.useState<ComboboxOption[]>(
+    []
+  );
+  const [loadingCryptos, setLoadingCryptos] = React.useState(true);
+
+  // Buscar lista de criptomoedas disponíveis
+  React.useEffect(() => {
+    const fetchCryptosList = async () => {
+      setLoadingCryptos(true);
+      try {
+        const response = await fetch(
+          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&order=market_cap_desc&per_page=100&page=1"
+        );
+
+        if (!response.ok) {
+          throw new Error("Erro ao buscar lista de criptomoedas");
+        }
+
+        const data: Cryptocurrency[] = await response.json();
+
+        // Transformar os dados para o formato do combobox
+        const options: ComboboxOption[] = data.map((crypto) => ({
+          value: crypto.id,
+          label: `${crypto.name} (${crypto.symbol.toUpperCase()})`,
+        }));
+
+        setCryptoOptions(options);
+      } catch (error) {
+        console.error("Erro ao buscar lista de criptomoedas:", error);
+        // Adicionar pelo menos o Bitcoin como opção padrão no caso de erro
+        setCryptoOptions([
+          { value: "bitcoin", label: "Bitcoin (BTC)" },
+          { value: "ethereum", label: "Ethereum (ETH)" },
+          { value: "binancecoin", label: "Binance Coin (BNB)" },
+        ]);
+      } finally {
+        setLoadingCryptos(false);
+      }
+    };
+
+    fetchCryptosList();
+  }, []);
 
   React.useEffect(() => {
     if (isMobile) {
@@ -150,142 +110,231 @@ export function ChartAreaInteractive() {
     }
   }, [isMobile]);
 
-  const filteredData = chartData.filter((item) => {
-    const date = new Date(item.date);
-    const referenceDate = new Date("2024-06-30");
-    let daysToSubtract = 90;
-    if (timeRange === "30d") {
-      daysToSubtract = 30;
-    } else if (timeRange === "7d") {
-      daysToSubtract = 7;
+  // Buscar dados da criptomoeda selecionada
+  React.useEffect(() => {
+    const fetchCryptoData = async () => {
+      setIsLoading(true);
+      try {
+        let days = 90;
+        if (timeRange === "30d") {
+          days = 30;
+        } else if (timeRange === "7d") {
+          days = 7;
+        }
+
+        const response = await fetch(
+          `https://api.coingecko.com/api/v3/coins/${selectedCrypto}/market_chart?vs_currency=brl&days=${days}&interval=daily`
+        );
+
+        if (!response.ok) {
+          throw new Error("Resposta da rede não está ok");
+        }
+
+        const data = await response.json();
+
+        // Transforma os dados da API no formato que nosso gráfico precisa
+        const formattedData = data.prices.map(
+          (priceData: [number, number], index: number) => {
+            const date = new Date(priceData[0]);
+            const volume = data.total_volumes[index]
+              ? data.total_volumes[index][1]
+              : 0;
+
+            return {
+              date: date.toISOString().split("T")[0],
+              price: parseFloat(priceData[1].toFixed(2)),
+              volume: parseFloat((volume / 1000000000).toFixed(2)), // Converte para bilhões
+            };
+          }
+        );
+
+        setChartData(formattedData);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        // Fornece dados de fallback em caso de erro
+        setChartData([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (selectedCrypto) {
+      fetchCryptoData();
     }
-    const startDate = new Date(referenceDate);
-    startDate.setDate(startDate.getDate() - daysToSubtract);
-    return date >= startDate;
-  });
+  }, [timeRange, selectedCrypto]);
+
+  // Obter um nome de exibição para a moeda selecionada
+  const getCryptoDisplayName = () => {
+    const coinNames: Record<string, string> = {
+      bitcoin: "Bitcoin",
+      ethereum: "Ethereum",
+      litecoin: "Litecoin",
+      binancecoin: "Binance Coin",
+      ripple: "XRP",
+      cardano: "Cardano",
+      dogecoin: "Dogecoin",
+      polkadot: "Polkadot",
+    };
+
+    return coinNames[selectedCrypto] || "Criptomoeda";
+  };
+
+  const selectedCryptoName = getCryptoDisplayName();
 
   return (
     <Card className="@container/card">
       <CardHeader>
-        <CardTitle>Total Visitors</CardTitle>
+        <CardTitle>Gráfico de Preço de Criptomoedas</CardTitle>
         <CardDescription>
           <span className="hidden @[540px]/card:block">
-            Total for the last 3 months
+            {selectedCryptoName} -{" "}
+            {timeRange === "90d"
+              ? "Preço nos últimos 3 meses"
+              : timeRange === "30d"
+                ? "Preço nos últimos 30 dias"
+                : "Preço nos últimos 7 dias"}
           </span>
-          <span className="@[540px]/card:hidden">Last 3 months</span>
+          <span className="@[540px]/card:hidden">
+            {selectedCryptoName} -{" "}
+            {timeRange === "90d"
+              ? "Últimos 3 meses"
+              : timeRange === "30d"
+                ? "Últimos 30 dias"
+                : "Últimos 7 dias"}
+          </span>
         </CardDescription>
-        <CardAction>
-          <ToggleGroup
-            type="single"
-            value={timeRange}
-            onValueChange={setTimeRange}
-            variant="outline"
-            className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
-          >
-            <ToggleGroupItem value="90d">Last 3 months</ToggleGroupItem>
-            <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
-            <ToggleGroupItem value="7d">Last 7 days</ToggleGroupItem>
-          </ToggleGroup>
-          <Select value={timeRange} onValueChange={setTimeRange}>
-            <SelectTrigger
-              className="flex w-40 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate @[767px]/card:hidden"
-              size="sm"
-              aria-label="Select a value"
+        <CardAction className="flex flex-col gap-2 sm:flex-row">
+          <div className="w-full max-w-xs">
+            <Combobox
+              options={cryptoOptions}
+              value={selectedCrypto}
+              onValueChange={setSelectedCrypto}
+              placeholder={
+                loadingCryptos
+                  ? "Carregando moedas..."
+                  : "Selecione uma criptomoeda"
+              }
+              emptyMessage="Nenhuma criptomoeda encontrada"
+              disabled={loadingCryptos}
+            />
+          </div>
+          <div className="flex">
+            <ToggleGroup
+              type="single"
+              value={timeRange}
+              onValueChange={setTimeRange}
+              variant="outline"
+              className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
             >
-              <SelectValue placeholder="Last 3 months" />
-            </SelectTrigger>
-            <SelectContent className="rounded-xl">
-              <SelectItem value="90d" className="rounded-lg">
-                Last 3 months
-              </SelectItem>
-              <SelectItem value="30d" className="rounded-lg">
-                Last 30 days
-              </SelectItem>
-              <SelectItem value="7d" className="rounded-lg">
-                Last 7 days
-              </SelectItem>
-            </SelectContent>
-          </Select>
+              <ToggleGroupItem value="90d">Últimos 3 meses</ToggleGroupItem>
+              <ToggleGroupItem value="30d">Últimos 30 dias</ToggleGroupItem>
+              <ToggleGroupItem value="7d">Últimos 7 dias</ToggleGroupItem>
+            </ToggleGroup>
+            <Select value={timeRange} onValueChange={setTimeRange}>
+              <SelectTrigger
+                className="flex w-40 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate @[767px]/card:hidden"
+                size="sm"
+                aria-label="Selecione um valor"
+              >
+                <SelectValue placeholder="Últimos 3 meses" />
+              </SelectTrigger>
+              <SelectContent className="rounded-xl">
+                <SelectItem value="90d" className="rounded-lg">
+                  Últimos 3 meses
+                </SelectItem>
+                <SelectItem value="30d" className="rounded-lg">
+                  Últimos 30 dias
+                </SelectItem>
+                <SelectItem value="7d" className="rounded-lg">
+                  Últimos 7 dias
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </CardAction>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        <ChartContainer
-          config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
-        >
-          <AreaChart data={filteredData}>
-            <defs>
-              <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-desktop)"
-                  stopOpacity={1.0}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-desktop)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-              <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-mobile)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-mobile)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-            </defs>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              minTickGap={32}
-              tickFormatter={(value) => {
-                const date = new Date(value);
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                });
+        {isLoading ? (
+          <div className="flex h-[250px] w-full items-center justify-center">
+            <p className="text-muted-foreground">Carregando dados...</p>
+          </div>
+        ) : (
+          <ChartContainer
+            config={chartConfig}
+            className="aspect-auto h-[250px] w-full"
+          >
+            <AreaChart
+              data={chartData}
+              margin={{
+                top: 10,
+                right: 30,
+                left: 0,
+                bottom: 0,
               }}
-            />
-            <ChartTooltip
-              cursor={false}
-              defaultIndex={isMobile ? -1 : 10}
-              content={
-                <ChartTooltipContent
-                  labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                    });
-                  }}
-                  indicator="dot"
-                />
-              }
-            />
-            <Area
-              dataKey="mobile"
-              type="natural"
-              fill="url(#fillMobile)"
-              stroke="var(--color-mobile)"
-              stackId="a"
-            />
-            <Area
-              dataKey="desktop"
-              type="natural"
-              fill="url(#fillDesktop)"
-              stroke="var(--color-desktop)"
-              stackId="a"
-            />
-          </AreaChart>
-        </ChartContainer>
+            >
+              <defs>
+                <linearGradient id="fillPrice" x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="5%"
+                    stopColor="var(--chart-1)"
+                    stopOpacity={0.8}
+                  />
+                  <stop
+                    offset="95%"
+                    stopColor="var(--chart-1)"
+                    stopOpacity={0.1}
+                  />
+                </linearGradient>
+                <linearGradient id="fillVolume" x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="5%"
+                    stopColor="var(--chart-2)"
+                    stopOpacity={0.8}
+                  />
+                  <stop
+                    offset="95%"
+                    stopColor="var(--chart-2)"
+                    stopOpacity={0.1}
+                  />
+                </linearGradient>
+              </defs>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="date"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                minTickGap={32}
+                tickFormatter={(value) => {
+                  const date = new Date(value);
+                  return date.toLocaleDateString("pt-BR", {
+                    month: "short",
+                    day: "numeric",
+                  });
+                }}
+              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Area
+                type="monotone"
+                dataKey="price"
+                stroke="var(--chart-1)"
+                strokeWidth={2}
+                fill="url(#fillPrice)"
+                name={`${selectedCryptoName} (R$)`}
+                activeDot={{ r: 6, style: { fill: "var(--chart-1)" } }}
+              />
+              <Area
+                type="monotone"
+                dataKey="volume"
+                stroke="var(--chart-2)"
+                strokeWidth={2}
+                fill="url(#fillVolume)"
+                name="Quantidade Negociada (Bi R$)"
+                activeDot={{ r: 6, style: { fill: "var(--chart-2)" } }}
+              />
+            </AreaChart>
+          </ChartContainer>
+        )}
       </CardContent>
     </Card>
   );
